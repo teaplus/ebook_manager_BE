@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class Story extends Model
 {
     use HasFactory;
@@ -27,7 +28,7 @@ class Story extends Model
         return $this->belongsToMany(Category::class, 'story_category');
     }
 
-    public function authors()
+    public function author()
     {
         return $this->belongsTo(Author::class);
     }

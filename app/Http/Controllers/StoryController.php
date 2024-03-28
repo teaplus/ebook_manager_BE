@@ -6,12 +6,20 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Story;
 use App\Models\User;
+use App\Model\Author;
 
 
 
 
 class StoryController extends Controller
 {
+
+    public function getListStory(Request $request){
+        $stories = Story::with(['categories:id,category_name', 'author:id,author_name'])->get();
+
+        return response()->json(['data' => $stories]);
+    }
+
     public function createStory(Request $request){
         $user = $request->user();
 

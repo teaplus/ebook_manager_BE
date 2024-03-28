@@ -31,6 +31,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/category/create', [CategoryController::class, 'createCategory']);
     Route::post('/author/create', [CategoryController::class, 'createAuthor']);
 
+    Route::get('/story/list', [StoryController::class, 'getListStory']);
+
 
 
 
