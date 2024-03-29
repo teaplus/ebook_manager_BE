@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Story;
 use App\Models\User;
-use App\Model\Author;
+use App\Models\Author;
+use App\Models\Chapter;
+
 
 
 
@@ -63,8 +65,16 @@ class StoryController extends Controller
         }
     }
 
-    public function addChapter(){
+    public function addChapter(Request $request, $id){
 
+        $chapter = Chapter::create([
+            'story_id'=>$id,
+            'chapter_number'=>$request->input('chapter_number'),
+            'title'=>$request->input('title'),
+            'content'=> $request->input('content')
+        ]);
+            return response()->json(['message' => 'Story chapter add successfully', 'data' => $chapter], 201);
+        
     }
 
     public function updateChapter(){

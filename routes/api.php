@@ -18,6 +18,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\StoryController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\CommentController;
+
 
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -28,10 +30,24 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [UserController::class, 'logout']);
         
     Route::post('/stories/create', [StoryController::class, 'createStory']);
+    Route::post('/stories/{id}/addChapter', [StoryController::class, 'addChapter']);
+    Route::put('/stories/{id}/chuong-{chapId}', [StoryController::class, 'updateChapter']);
+    Route::delete('/stories/{id}/chuong-{chapId}', [StoryController::class, 'deleteChapter']);
+
+
+
+    
+    Route::post('/stories/create', [StoryController::class, 'createStory']);
+    
     Route::post('/category/create', [CategoryController::class, 'createCategory']);
     Route::post('/author/create', [CategoryController::class, 'createAuthor']);
 
     Route::get('/story/list', [StoryController::class, 'getListStory']);
+
+
+    //Comments
+    Route::get('/stories/{id}',[CommentController::class, 'listComment']);
+    Route::post('/stories/comment/{id}',[CommentController::class, 'createComment']);
 
 
 

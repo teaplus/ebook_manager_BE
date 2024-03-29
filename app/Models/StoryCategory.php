@@ -9,7 +9,7 @@ class StoryCategory extends Model
 {
     protected $table = 'story_category'; // Tên của bảng liên kết
 
-    protected $fillable = ['genre_id', 'story_id'];
+    protected $fillable = ['category_id', 'story_id'];
 
     // Không cần quan hệ belongsTo hoặc bất kỳ phương thức nào khác, vì đây chỉ là một bảng liên kết
     /**
