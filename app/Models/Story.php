@@ -28,9 +28,11 @@ class Story extends Model
         return $this->belongsToMany(Category::class, 'story_category');
     }
 
-    public function author()
+
+    // set default name to customize name author_id
+    public function authors()
     {
-        return $this->belongsTo(Author::class);
+        return $this->belongsTo(Author::class, 'author_id');
     }
 
     public function comments()

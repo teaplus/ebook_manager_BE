@@ -15,7 +15,7 @@ class StoryController extends Controller
 {
 
     public function getListStory(Request $request){
-        $stories = Story::with(['categories:id,category_name', 'author:id,author_name'])->get();
+        $stories = Story::with(['categories:id,category_name', 'authors:id,author_name'])->get();
 
         return response()->json(['data' => $stories]);
     }
