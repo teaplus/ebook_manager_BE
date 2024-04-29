@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
+
 use App\Models\Category;
 use App\Models\Story;
 use App\Models\User;
@@ -77,8 +79,15 @@ class StoryController extends Controller
         
     }
 
-    public function updateChapter(){
-
+    public function updateChapter(Request $request, $id){
+        $Story = Story::find($id);
+        if (Gate::allows('edit-chapter', $Story)) {
+            // Người dùng có quyền chỉnh sửa bài viết
+            return 'Người dùng có quyền chỉnh sửa bài viết';
+        } else {
+            // Người dùng không có quyền chỉnh sửa bài viết
+            return "Người dùng không có quyền chỉnh sửa bài viết";
+        }
     }
 
     public function deleteChapter(){

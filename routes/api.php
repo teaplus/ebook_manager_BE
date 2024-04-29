@@ -31,7 +31,7 @@ Route::middleware('auth:sanctum')->group(function () {
         
     Route::post('/stories/create', [StoryController::class, 'createStory']);
     Route::post('/stories/{id}/addChapter', [StoryController::class, 'addChapter']);
-    Route::put('/stories/{id}/chuong-{chapId}', [StoryController::class, 'updateChapter']);
+    Route::put('/stories/{id}/update', [StoryController::class, 'updateChapter']);
     Route::delete('/stories/{id}/chuong-{chapId}', [StoryController::class, 'deleteChapter']);
 
 
