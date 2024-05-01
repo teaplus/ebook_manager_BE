@@ -28,7 +28,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/users/{id}', [UserController::class, 'show']);
     Route::put('/users/{id}', [UserController::class, 'update']);
     Route::post('/logout', [UserController::class, 'logout']);
-        
+
+    Route::get('/stories/{id}', [StoryController::class, 'listChapter']);    
     Route::post('/stories/create', [StoryController::class, 'createStory']);
     Route::post('/stories/{id}/addChapter', [StoryController::class, 'addChapter']);
     Route::put('/stories/{id}/update', [StoryController::class, 'updateChapter']);
@@ -46,7 +47,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
     //Comments
-    Route::get('/stories/{id}',[CommentController::class, 'listComment']);
+    Route::get('/stories/{id}/comment',[CommentController::class, 'listComment']);
     Route::post('/stories/comment/{id}',[CommentController::class, 'createComment']);
 
 

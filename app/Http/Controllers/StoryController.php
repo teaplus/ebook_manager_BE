@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\Category;
 use App\Models\Story;
@@ -18,8 +19,9 @@ use App\Models\Chapter;
 class StoryController extends Controller
 {
 
-    public function getListStory(Request $request){
-        $stories = Story::with(['categories:id,category_name', 'authors:id,author_name'])->get();
+    public function getListStory(Request $request) {
+        $name = $request->query('name');
+        $stories = Story::where('title', 'LIKE', "%$name%")->with(['categories:id,category_name', 'authors:id,author_name'])->get();
 
         return response()->json(['data' => $stories]);
     }
@@ -67,13 +69,33 @@ class StoryController extends Controller
         }
     }
 
+    public function listChapter($story_id){
+        $chapters = Chapter::where('story_id', $story_id)->get();
+        return response()->json(['data' => $chapters], 200);
+    }
+
     public function addChapter(Request $request, $id){
+
+
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+        ]);
+        // Create unique name for chapter
+        $fileName = uniqid() . '.txt';
+
+        // save content of chapter to text file.
+        Storage::disk('local')->put($fileName, $validatedData['content']);
+
+          // return url of file chapter
+        $filePath = 'app/' . $fileName;
+        $absolutePath = storage_path($filePath);
 
         $chapter = Chapter::create([
             'story_id'=>$id,
             'chapter_number'=>$request->input('chapter_number'),
             'title'=>$request->input('title'),
-            'content'=> $request->input('content')
+            'content'=> $fileName
         ]);
             return response()->json(['message' => 'Story chapter add successfully', 'data' => $chapter], 201);
         
